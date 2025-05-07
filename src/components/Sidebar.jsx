@@ -4,10 +4,15 @@ import { FaPhone, FaPhoneSlash, FaRegCopy } from "react-icons/fa";
 import { copyToClipboard } from "../utils/clipboard";
 
 const Sidebar = ({ children }) => {
-  const { callAccepted, name, setName, callEnded, leaveCall, callUser } =
+  const { me, callAccepted, name, setName, callEnded, leaveCall, callUser } =
     useContext(SocketContext);
   const [idToCall, setIdToCall] = useState("");
   const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    const success = await copyToClipboard(me);
+    setCopied(success);
+  };
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-10 p-0">
@@ -27,7 +32,7 @@ const Sidebar = ({ children }) => {
               />
               <button
                 type="button"
-                onClick={() => setCopied(copyToClipboard())}
+                onClick={handleCopy}
                 className="w-full bg-blue-600 text-white 
                 mt-4 py-2 px-4 rounded flex items-center 
                 justify-center gap-2"

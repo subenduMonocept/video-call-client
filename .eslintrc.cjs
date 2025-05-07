@@ -33,7 +33,6 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
     "react/prop-types": "off",
-    "no-console": "warn",
     "no-debugger": "warn",
     "no-alert": "warn",
     "no-unreachable": "error",

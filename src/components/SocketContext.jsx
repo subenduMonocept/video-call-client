@@ -1,10 +1,14 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import createPeer from "../utils/simple-peer-wrapper";
+import { showToast } from "../utils/toast";
 
 const SocketContext = createContext();
 
-const socket = io(import.meta.env.VITE_SERVER_URL);
+const socket = io("http://localhost:3333", {
+  transports: ["websocket"],
+  upgrade: false,
+});
 
 const ContextProvider = ({ children }) => {
   const [stream, setStream] = useState(null);
@@ -19,11 +23,18 @@ const ContextProvider = ({ children }) => {
   const connectionRef = useRef();
 
   useEffect(() => {
+    // Get user media
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
         setStream(currentStream);
-        myVideo.current.srcObject = currentStream;
+        if (myVideo.current) {
+          myVideo.current.srcObject = currentStream;
+        }
+      })
+      .catch((error) => {
+        console.error("Error accessing media devices:", error);
+        showToast.error("Error accessing media devices");
       });
 
     socket.on("me", (id) => {
@@ -33,6 +44,11 @@ const ContextProvider = ({ children }) => {
     socket.on("calluser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivedCall: true, from, name: callerName, signal });
     });
+
+    return () => {
+      socket.off("me");
+      socket.off("calluser");
+    };
   }, []);
 
   const answerCall = () => {
