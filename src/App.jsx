@@ -10,10 +10,12 @@ const App = () => {
     <>
       <ToastContainer />
       <Navbar />
-      <VideoPlayer />
-      <Sidebar>
-        <Notifications />
-      </Sidebar>
+      <div className="min-h-screen">
+        <VideoPlayer />
+        <Sidebar>
+          <Notifications />
+        </Sidebar>
+      </div>
     </>
   );
 };
