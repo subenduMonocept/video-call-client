@@ -98,6 +98,7 @@ const ContextProvider = ({ children }) => {
   return (
     <SocketContext.Provider
       value={{
+        me,
         call,
         callAccepted,
         myVideo,

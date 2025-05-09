@@ -18,11 +18,11 @@ const Sidebar = ({ children }) => {
     const success = await copyToClipboard(me);
     setCopied(success);
   };
-  console.log(me);
+
   return (
     <div className="w-full max-w-2xl mx-auto mt-10 p-0">
-      <div className="border-2 border-black p-6 rounded shadow">
-        <form className="flex flex-col space-y-6">
+      <div className="bg-white rounded-lg shadow-lg border-2 border-gray-200">
+        <form className="flex flex-col space-y-6 p-6">
           <div className="flex flex-col md:flex-row w-full gap-6">
             <div className="flex-1">
               <h2 className="text-lg font-semibold mb-2">Account Info</h2>
@@ -33,17 +33,20 @@ const Sidebar = ({ children }) => {
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full p-2 border border-gray-300 
-                rounded focus:outline-none focus:ring-2 
-                focus:ring-blue-500"
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 autoComplete="name"
               />
               <button
                 type="button"
                 onClick={handleCopy}
                 disabled={!me}
-                className={`w-full mt-4 py-2 px-4 rounded flex items-center 
-                justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white`}
+                className={`w-full mt-4 py-2 px-4 rounded flex items-center justify-center gap-2 
+                ${
+                  !me
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700"
+                } 
+                text-white transition-colors duration-200`}
               >
                 <FaRegCopy />
                 {copied ? "Copied!" : "Copy Your ID"}
@@ -59,16 +62,14 @@ const Sidebar = ({ children }) => {
                 placeholder="ID to call"
                 value={idToCall}
                 onChange={(e) => setIdToCall(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded 
-                focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 autoComplete="off"
               />
               {callAccepted && !callEnded ? (
                 <button
                   type="button"
                   onClick={leaveCall}
-                  className="w-full bg-red-600 text-white mt-4 py-2 
-                  px-4 rounded flex items-center justify-center gap-2"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white mt-4 py-2 px-4 rounded flex items-center justify-center gap-2 transition-colors duration-200"
                 >
                   <FaPhoneSlash />
                   Hang Up
@@ -78,9 +79,13 @@ const Sidebar = ({ children }) => {
                   type="button"
                   onClick={() => callUser(idToCall)}
                   disabled={!me || !idToCall}
-                  className={`w-full mt-4 py-2 px-4 rounded flex items-center 
-                  justify-center gap-2 bg-green-600 hover:bg-green-700
-                  text-white`}
+                  className={`w-full mt-4 py-2 px-4 rounded flex items-center justify-center gap-2 
+                  ${
+                    !me || !idToCall
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-green-600 hover:bg-green-700"
+                  } 
+                  text-white transition-colors duration-200`}
                 >
                   <FaPhone />
                   Call
