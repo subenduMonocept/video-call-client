@@ -5,7 +5,9 @@ import { showToast } from "../utils/toast";
 
 const SocketContext = createContext();
 
-const socket = io("http://localhost:3333", {
+const socket_url = import.meta.env.VITE_SERVER_URL;
+
+const socket = io(socket_url, {
   transports: ["websocket"],
   upgrade: false,
 });
@@ -23,7 +25,6 @@ const ContextProvider = ({ children }) => {
   const connectionRef = useRef();
 
   useEffect(() => {
-    // Get user media
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {

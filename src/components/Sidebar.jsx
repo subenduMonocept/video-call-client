@@ -43,14 +43,10 @@ const Sidebar = ({ children }) => {
                 onClick={handleCopy}
                 disabled={!me}
                 className={`w-full mt-4 py-2 px-4 rounded flex items-center 
-                justify-center gap-2 ${
-                  !me
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700"
-                } text-white`}
+                justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white`}
               >
                 <FaRegCopy />
-                {copied ? "Copied!" : me ? "Copy Your ID" : "Waiting for ID..."}
+                {copied ? "Copied!" : "Copy Your ID"}
               </button>
             </div>
 
@@ -83,11 +79,8 @@ const Sidebar = ({ children }) => {
                   onClick={() => callUser(idToCall)}
                   disabled={!me || !idToCall}
                   className={`w-full mt-4 py-2 px-4 rounded flex items-center 
-                  justify-center gap-2 ${
-                    !me || !idToCall
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-green-600 hover:bg-green-700"
-                  } text-white`}
+                  justify-center gap-2 bg-green-600 hover:bg-green-700
+                  text-white`}
                 >
                   <FaPhone />
                   Call
