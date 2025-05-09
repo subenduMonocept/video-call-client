@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { SocketContext } from "./SocketContext";
+import { SocketContext } from "../context/SocketContext";
 import { FaPhone, FaPhoneSlash, FaRegCopy } from "react-icons/fa";
 import { copyToClipboard } from "../utils/clipboard";
 import { showToast } from "../utils/toast";
@@ -18,7 +18,7 @@ const Sidebar = ({ children }) => {
     const success = await copyToClipboard(me);
     setCopied(success);
   };
-
+  console.log(me);
   return (
     <div className="w-full max-w-2xl mx-auto mt-10 p-0">
       <div className="border-2 border-black p-6 rounded shadow">

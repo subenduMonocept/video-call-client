@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { Buffer } from "buffer";
 import process from "process";
-import { ContextProvider } from "./components/SocketContext";
+import { ContextProvider } from "./context/SocketContext.jsx";
 
 window.Buffer = Buffer;
 window.process = process;
