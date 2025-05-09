@@ -45,11 +45,6 @@ const ContextProvider = ({ children }) => {
     socket.on("calluser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivedCall: true, from, name: callerName, signal });
     });
-
-    return () => {
-      socket.off("me");
-      socket.off("calluser");
-    };
   }, []);
 
   const answerCall = () => {
